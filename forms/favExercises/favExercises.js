@@ -1,11 +1,6 @@
-/*Complete the favExercises.onshow event handler so it populates the select list from both the 'exercises' and 'coreExercises' arrays when the form loads/starts. 
-Add a button so when the user has chosen their two exercises, it shows them in a control that uses this format: 
-        You chose situps and pushups. 
-Add a button on the right bottom corner of the form that, when clicked, goes to the next page - the mobileNav page. 
-*/
-let selectChoices = []
 let exercises = ["pullups","pushups","situps","jogging","plank","curls"]
 let coreExercises = ["situps","plank"]
+let selectChoices = []
 
 favExercises.onshow=function(){
 selExercises.clear()   
@@ -15,23 +10,28 @@ selExercises.clear()
         selExercises.addItem(coreExercises[i])
 }
 
-
 selExercises.onfocusout=function(s){
 if (typeof(s) == "object") {
       return                    
     } else {
         selExercises.value = s
-        selectChoices.push(s) /*Put s into the selectChoices array*/
+        selectChoices.push(s) 
   }
 }
 
 btnSubmit.onclick=function(){
-  let message = "You chose:" 
-  for (i = 0; i <= selExercises.text.length - 1; i++)
-     message = message + selExercises.text[i] + " "
-  lblMessageExercise.value = message
+    if (selExercises.length > 1) {
+  lblMessageExercise.value = `You chose ${selExercises.text[0]} and ${selExercises.text[1]} - those are the two core exercises.`
+  } else {
+  lblMessageExercise.value = "You did not pick the two core exercises."
+  }
 }
 
 btnNextPage.onclick=function(){
   ChangeForm(mobileNav)
 }
+/*
+let message = `You chose ${selExercises.text[i} and ${selExercises.text[i] - those are the two core exercises.`
+  for (i = 0; i <= selExercises.text.length - 1; i++)
+     message = message + selExercises.text[i] + "\n"
+  lblMessageExercise.value = message*/
